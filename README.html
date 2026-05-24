@@ -1,0 +1,1141 @@
+[index.html](https://github.com/user-attachments/files/28190211/index.html)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metabolic Recovery Plan — 8-Week Protocol</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #161b27;
+    --surface2: #1e2535;
+    --border: #2a3347;
+    --accent: #4ade80;
+    --accent2: #38bdf8;
+    --accent3: #f59e0b;
+    --accent4: #f87171;
+    --text: #e2e8f0;
+    --muted: #64748b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Instrument Sans', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 80px 0;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #0f1117 0%, #1a2235 50%, #0f1117 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 24px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(74,222,128,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(74,222,128,0.12);
+    border: 1px solid rgba(74,222,128,0.3);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .header h1 span { color: var(--accent); font-style: italic; }
+  .header p {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 520px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .summary-card .val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--accent);
+    display: block;
+  }
+  .summary-card .lbl {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .med-strip {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 20px;
+    margin: 32px 0;
+  }
+  .med-strip-inner { max-width: 860px; margin: 0 auto; }
+  .med-strip h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .med-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  .med-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .med-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .med-name { font-size: 14px; font-weight: 600; color: var(--text); }
+  .med-note { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .med-highlight {
+    border-color: rgba(74,222,128,0.3);
+    background: rgba(74,222,128,0.04);
+  }
+
+  .day-nav {
+    max-width: 860px;
+    margin: 0 auto 24px;
+    padding: 0 20px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .day-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+  }
+  .day-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .day-btn.active {
+    background: rgba(74,222,128,0.12);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .day-panel { display: none; max-width: 860px; margin: 0 auto; padding: 0 20px; }
+  .day-panel.active { display: block; }
+
+  .day-header {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px 14px 0 0;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .day-title { font-family: 'DM Serif Display', serif; font-size: 24px; color: #fff; }
+  .day-title span { color: var(--accent); }
+  .day-focus {
+    background: rgba(56,189,248,0.1);
+    border: 1px solid rgba(56,189,248,0.3);
+    color: var(--accent2);
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: 'DM Mono', monospace;
+  }
+  .day-body {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+    overflow: hidden;
+  }
+
+  .meal-block {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .meal-block:last-child { border-bottom: none; }
+  .meal-time-col { display: flex; flex-direction: column; gap: 4px; }
+  .meal-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+  }
+  .meal-time-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--accent3);
+  }
+  .meal-kcal { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
+  .meal-name { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+  .meal-items { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .meal-items li {
+    font-size: 13px;
+    color: #94a3b8;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .meal-items li::before { content: '›'; position: absolute; left: 0; color: var(--accent); }
+  .meal-items li.med-line { color: #4ade80; font-weight: 500; }
+  .meal-items li.med-line::before { content: '💊'; font-size: 11px; }
+
+  .exercise-block {
+    background: linear-gradient(135deg, rgba(74,222,128,0.05) 0%, rgba(56,189,248,0.05) 100%);
+    border-top: 1px solid var(--border);
+    padding: 20px 24px;
+  }
+  .exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .exercise-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .exercise-duration {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: rgba(56,189,248,0.1);
+    border: 1px solid rgba(56,189,248,0.3);
+    color: var(--accent2);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .exercise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  .exercise-item {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .exercise-item .ex-phase {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .exercise-item .ex-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .exercise-item .ex-detail { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  .daily-totals {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .total-item { display: flex; flex-direction: column; gap: 2px; }
+  .total-val { font-family: 'DM Mono', monospace; font-size: 16px; color: var(--accent); font-weight: 500; }
+  .total-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+  .tip-box {
+    background: rgba(245,158,11,0.07);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 16px 24px;
+    font-size: 13px;
+    color: #fbbf24;
+    line-height: 1.6;
+  }
+  .tip-box strong { display: block; margin-bottom: 4px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+
+  .water-reminder {
+    background: rgba(56,189,248,0.06);
+    border: 1px solid rgba(56,189,248,0.2);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin: 0 24px 16px;
+    font-size: 12px;
+    color: var(--accent2);
+  }
+
+  .footer {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 24px 20px 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    .meal-block { grid-template-columns: 1fr; gap: 8px; }
+    .meal-time-col { flex-direction: row; align-items: baseline; gap: 12px; }
+    .day-header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">Medical Nutrition & Lifestyle Protocol — Corrected</div>
+  <h1>Your 8-Week<br><span>Metabolic Recovery Plan</span></h1>
+  <p>Personalized for a 51-year-old male with T2DM, hypertension, dyslipidemia & erythrocytosis. ~1,800 kcal/day · Low glycemic index · Mediterranean framework.</p>
+  <div class="summary-grid">
+    <div class="summary-card"><span class="val">1,800</span><div class="lbl">kcal / day</div></div>
+    <div class="summary-card"><span class="val">&lt;80g</span><div class="lbl">Net carbs</div></div>
+    <div class="summary-card"><span class="val">140g</span><div class="lbl">Protein</div></div>
+    <div class="summary-card"><span class="val">80g</span><div class="lbl">Healthy fats</div></div>
+    <div class="summary-card"><span class="val">2.5L</span><div class="lbl">Water / day</div></div>
+  </div>
+</div>
+
+<!-- MEDICATION SCHEDULE -->
+<div class="med-strip">
+  <div class="med-strip-inner">
+    <h2>💊 Daily Medication Schedule — Every Day</h2>
+    <div class="med-grid">
+      <div class="med-item med-highlight">
+        <div class="med-time">⏰ 07:30 AM — With Breakfast</div>
+        <div class="med-name">Livazo (Pitavastatin) 2 mg</div>
+        <div class="med-note">Take with breakfast. Unlike other statins, can be taken at any time of day. Metabolically neutral — does not worsen glucose or insulin resistance. Monitor LFTs at 12 weeks.</div>
+      </div>
+      <div class="med-item med-highlight">
+        <div class="med-time">⏰ 07:30 AM — With Breakfast</div>
+        <div class="med-name">Losartan (for hypertension)</div>
+        <div class="med-note">Take alongside Livazo with food and a full glass of water. Renoprotective in diabetes. Monitor BP daily, potassium every 3 months.</div>
+      </div>
+      <div class="med-item">
+        <div class="med-time">⏰ Once Weekly — After Breakfast</div>
+        <div class="med-name">Mounjaro (Tirzepatide) 2.5 mg SC</div>
+        <div class="med-note">Inject subcutaneously (abdomen, thigh, or upper arm). Rotate sites. Same day each week. Weeks 1–6: 2.5mg → then increase to 5mg per endocrinologist plan.</div>
+      </div>
+      <div class="med-item">
+        <div class="med-time">📅 From Month 2 — Morning</div>
+        <div class="med-name">+ Jardiance (Empagliflozin) 10 mg</div>
+        <div class="med-note">With breakfast. Renal + cardiovascular protection. Monitor for UTI symptoms and hydration. Ensure adequate fluid intake.</div>
+      </div>
+      <div class="med-item">
+        <div class="med-time">📅 From Month 2 — With Dinner</div>
+        <div class="med-name">+ Glucophage XR (Metformin) 500 mg</div>
+        <div class="med-note">Take with dinner to minimize GI side effects. Extended-release form reduces nausea. Increases gradually as tolerated.</div>
+      </div>
+      <div class="med-item">
+        <div class="med-time">🌙 Every Night</div>
+        <div class="med-name">CPAP Machine</div>
+        <div class="med-note">Non-negotiable. Full night use every night including naps. Optimal CPAP compliance directly reduces erythrocytosis and improves insulin sensitivity.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY NAVIGATION -->
+<div class="day-nav">
+  <button class="day-btn active" onclick="showDay(0)">MON</button>
+  <button class="day-btn" onclick="showDay(1)">TUE</button>
+  <button class="day-btn" onclick="showDay(2)">WED</button>
+  <button class="day-btn" onclick="showDay(3)">THU</button>
+  <button class="day-btn" onclick="showDay(4)">FRI</button>
+  <button class="day-btn" onclick="showDay(5)">SAT</button>
+  <button class="day-btn" onclick="showDay(6)">SUN</button>
+</div>
+
+<!-- ===================== DAY 1 — MONDAY ===================== -->
+<div class="day-panel active" id="day-0">
+  <div class="day-header">
+    <div class="day-title">Day 1 — <span>Monday</span></div>
+    <div class="day-focus">🏋️ Upper Body Strength</div>
+  </div>
+  <div class="day-body">
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Breakfast</div><div class="meal-time-val">07:30</div><div class="meal-kcal">~420 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Greek Protein Bowl + Green Tea</div>
+        <ul class="meal-items">
+          <li>200g plain full-fat Greek yogurt (20g protein)</li>
+          <li>2 boiled eggs (12g protein)</li>
+          <li>1 tbsp ground flaxseeds + 1 tbsp chia seeds</li>
+          <li>10 raw almonds</li>
+          <li>½ cup fresh blueberries or strawberries (low GI)</li>
+          <li>Unsweetened green tea or black coffee</li>
+          <li class="med-line">Livazo (Pitavastatin) 2mg — take now with food</li>
+          <li class="med-line">Losartan — take now with food</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Mid-Morning</div><div class="meal-time-val">10:30</div><div class="meal-kcal">~120 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Hydration Snack</div>
+        <ul class="meal-items">
+          <li>500ml water with lemon squeeze</li>
+          <li>1 medium cucumber + 2 tbsp hummus</li>
+          <li>Celery sticks (unlimited — near-zero carb)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Lunch</div><div class="meal-time-val">13:00</div><div class="meal-kcal">~520 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Grilled Salmon + Quinoa + Roasted Vegetables</div>
+        <ul class="meal-items">
+          <li>180g grilled salmon fillet (omega-3, 35g protein — lowers TG)</li>
+          <li>½ cup cooked quinoa (low GI complex carb, 20g carbs)</li>
+          <li>Roasted broccoli, zucchini, bell peppers with 1 tbsp EVOO</li>
+          <li>Mixed green salad with lemon-olive oil dressing</li>
+          <li>500ml water</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Pre-Workout</div><div class="meal-time-val">16:00</div><div class="meal-kcal">~150 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Pre-Training Protein Snack</div>
+        <ul class="meal-items">
+          <li>1 hard-boiled egg</li>
+          <li>30g walnuts (7 halves)</li>
+          <li>1 small apple (GI ~36)</li>
+          <li>300ml water before training</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Dinner</div><div class="meal-time-val">19:30</div><div class="meal-kcal">~480 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Chicken Breast + Lentil Soup + Large Salad</div>
+        <ul class="meal-items">
+          <li>200g grilled skinless chicken breast (46g protein)</li>
+          <li>1 cup lentil soup (fiber, plant protein, low GI)</li>
+          <li>Large raw salad: lettuce, tomato, cucumber with olive oil + lemon</li>
+          <li>No bread, no rice, no potatoes</li>
+          <li>Chamomile or herbal tea</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Bedtime</div><div class="meal-time-val">22:00</div><div class="meal-kcal">~110 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Light Bedtime Snack</div>
+        <ul class="meal-items">
+          <li>100g low-fat cottage cheese or small plain yogurt (prevents overnight hunger)</li>
+          <li>5 raw almonds</li>
+          <li class="med-line">CPAP connected and running before sleep</li>
+          <li>Sleep target: 7–8 hours</li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-totals">
+      <div class="total-item"><div class="total-val">1,800 kcal</div><div class="total-lbl">Total Calories</div></div>
+      <div class="total-item"><div class="total-val">153g</div><div class="total-lbl">Protein</div></div>
+      <div class="total-item"><div class="total-val">78g</div><div class="total-lbl">Net Carbs</div></div>
+      <div class="total-item"><div class="total-val">82g</div><div class="total-lbl">Fat</div></div>
+      <div class="total-item"><div class="total-val">28g</div><div class="total-lbl">Fiber</div></div>
+    </div>
+    <div class="exercise-block">
+      <div class="exercise-header">
+        <div class="exercise-title">💪 Upper Body Strength Training</div>
+        <div class="exercise-duration">⏱ 75 min · 17:00–18:15</div>
+      </div>
+      <div class="exercise-grid">
+        <div class="exercise-item"><div class="ex-phase">Warm-up · 10 min</div><div class="ex-name">Dynamic Stretching</div><div class="ex-detail">Arm circles, shoulder rolls, light band pulls, 5 min brisk walk to raise heart rate</div></div>
+        <div class="exercise-item"><div class="ex-phase">Main · 50 min</div><div class="ex-name">Chest + Back + Shoulders</div><div class="ex-detail">Bench press 4×10, Seated row 4×12, Overhead press 3×10, Lat pulldown 3×12, Push-ups 3×15. Rest 60–90s between sets.</div></div>
+        <div class="exercise-item"><div class="ex-phase">Cardio · 15 min</div><div class="ex-name">Brisk Walk / Light Treadmill</div><div class="ex-detail">Moderate pace, HR 60–70% max. Critical for post-workout glucose clearance via GLUT-4.</div></div>
+        <div class="exercise-item"><div class="ex-phase">Cool-down · 10 min</div><div class="ex-name">Static Stretching + BP Check</div><div class="ex-detail">Full upper body stretch, deep breathing, record blood pressure post-exercise</div></div>
+      </div>
+    </div>
+    <div class="tip-box"><strong>💡 Monday — Weekly Start Ritual</strong> Weigh yourself first thing this morning, fasted, after bathroom. Record weight and fasting glucose. These two numbers, tracked weekly, will show your progress clearly over 8 weeks.</div>
+    <div class="water-reminder">💧 Target 2.5 liters water today — set a reminder every 2 hours</div>
+  </div>
+</div>
+
+<!-- ===================== DAY 2 — TUESDAY ===================== -->
+<div class="day-panel" id="day-1">
+  <div class="day-header">
+    <div class="day-title">Day 2 — <span>Tuesday</span></div>
+    <div class="day-focus">🚶 Active Recovery + Cardio</div>
+  </div>
+  <div class="day-body">
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Breakfast</div><div class="meal-time-val">07:30</div><div class="meal-kcal">~400 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Veggie Omelette + Avocado</div>
+        <ul class="meal-items">
+          <li>3-egg omelette with spinach, mushrooms, cherry tomatoes, cooked in 1 tsp olive oil</li>
+          <li>½ medium avocado (healthy MUFA fats, potassium)</li>
+          <li>1 thin slice whole-grain rye crispbread (max 15g carbs)</li>
+          <li>Unsweetened black coffee or herbal tea</li>
+          <li class="med-line">Livazo (Pitavastatin) 2mg + Losartan — both with breakfast</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Mid-Morning</div><div class="meal-time-val">10:30</div><div class="meal-kcal">~100 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Anti-Inflammatory Snack</div>
+        <ul class="meal-items">
+          <li>1 small pear (GI ~38)</li>
+          <li>10 raw pistachios</li>
+          <li>500ml water</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Lunch</div><div class="meal-time-val">13:00</div><div class="meal-kcal">~510 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Turkey & Chickpea Power Bowl</div>
+        <ul class="meal-items">
+          <li>150g grilled turkey breast strips (35g protein)</li>
+          <li>½ cup boiled chickpeas (complex carb, fiber, plant protein)</li>
+          <li>Roasted cauliflower, broccoli, red onion (EVOO, cumin, paprika)</li>
+          <li>Tahini-lemon dressing: 1 tbsp tahini + lemon juice + garlic</li>
+          <li>500ml water</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Afternoon</div><div class="meal-time-val">16:30</div><div class="meal-kcal">~130 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Yogurt Snack</div>
+        <ul class="meal-items">
+          <li>100g plain Greek yogurt</li>
+          <li>1 tsp ground cinnamon (improves insulin sensitivity)</li>
+          <li>5 walnut halves</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Dinner</div><div class="meal-time-val">19:30</div><div class="meal-kcal">~530 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Baked Sea Bass + Steamed Vegetables + Small Sweet Potato</div>
+        <ul class="meal-items">
+          <li>200g baked sea bass with herbs, lemon, garlic (38g protein)</li>
+          <li>½ small sweet potato — boiled (GI ~54, 15g carbs max)</li>
+          <li>Steamed asparagus + green beans with olive oil drizzle</li>
+          <li>Large green salad</li>
+          <li>Herbal or green tea</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Bedtime</div><div class="meal-time-val">22:00</div><div class="meal-kcal">~110 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Bedtime Snack + CPAP</div>
+        <ul class="meal-items">
+          <li>100g cottage cheese or plain yogurt</li>
+          <li class="med-line">CPAP on — full 7–8 hours</li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-totals">
+      <div class="total-item"><div class="total-val">1,780 kcal</div><div class="total-lbl">Total Calories</div></div>
+      <div class="total-item"><div class="total-val">148g</div><div class="total-lbl">Protein</div></div>
+      <div class="total-item"><div class="total-val">76g</div><div class="total-lbl">Net Carbs</div></div>
+      <div class="total-item"><div class="total-val">79g</div><div class="total-lbl">Fat</div></div>
+    </div>
+    <div class="exercise-block">
+      <div class="exercise-header">
+        <div class="exercise-title">🚶 Active Recovery — Cardio Day</div>
+        <div class="exercise-duration">⏱ 60 min · 17:30–18:30</div>
+      </div>
+      <div class="exercise-grid">
+        <div class="exercise-item"><div class="ex-phase">Cardio · 40 min</div><div class="ex-name">Brisk Walking or Cycling</div><div class="ex-detail">Outdoor walk or stationary bike. Maintain HR 110–130 bpm. A 40-minute walk lowers blood glucose more effectively than many oral medications.</div></div>
+        <div class="exercise-item"><div class="ex-phase">Flexibility · 20 min</div><div class="ex-name">Yoga / Deep Stretching</div><div class="ex-detail">Full body stretch, hip flexors, hamstrings, chest openers. Reduces cortisol, improves insulin sensitivity, aids sleep quality.</div></div>
+      </div>
+    </div>
+    <div class="tip-box"><strong>💡 Tuesday Tip</strong> Walk for 15 minutes after dinner tonight — this post-meal walk is one of the most powerful glucose-lowering interventions available. It directly blunts the post-dinner glucose peak without any medication.</div>
+    <div class="water-reminder">💧 2.5L water. Sparkling water is fine if it helps variety.</div>
+  </div>
+</div>
+
+<!-- ===================== DAY 3 — WEDNESDAY ===================== -->
+<div class="day-panel" id="day-2">
+  <div class="day-header">
+    <div class="day-title">Day 3 — <span>Wednesday</span></div>
+    <div class="day-focus">🏋️ Lower Body Strength</div>
+  </div>
+  <div class="day-body">
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Breakfast</div><div class="meal-time-val">07:30</div><div class="meal-kcal">~410 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Smoked Salmon + Eggs + Seeds</div>
+        <ul class="meal-items">
+          <li>80g smoked salmon (20g protein, rich omega-3 — directly lowers TG)</li>
+          <li>2 scrambled eggs in olive oil</li>
+          <li>1 tbsp chia seeds soaked overnight in water (slows gastric emptying)</li>
+          <li>½ cup cherry tomatoes + cucumber slices</li>
+          <li>Unsweetened green tea</li>
+          <li class="med-line">Livazo 2mg + Losartan — with breakfast</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Mid-Morning</div><div class="meal-time-val">10:30</div><div class="meal-kcal">~110 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Snack</div>
+        <ul class="meal-items">
+          <li>1 small orange (GI ~43)</li>
+          <li>12 raw almonds</li>
+          <li>Large glass of water</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Lunch</div><div class="meal-time-val">13:00</div><div class="meal-kcal">~530 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Lean Beef Stir-Fry + Bulgur</div>
+        <ul class="meal-items">
+          <li>150g lean beef strips (sirloin, trimmed of all fat) — 38g protein</li>
+          <li>½ cup cooked bulgur (GI ~46 — far better than white rice)</li>
+          <li>Stir-fried broccoli, snap peas, bok choy with ginger, garlic, low-sodium soy sauce</li>
+          <li>1 tsp sesame oil as finishing drizzle</li>
+          <li>500ml water</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Pre-Workout</div><div class="meal-time-val">16:00</div><div class="meal-kcal">~140 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Pre-Training Fuel</div>
+        <ul class="meal-items">
+          <li>2 hard-boiled eggs</li>
+          <li>5 olives</li>
+          <li>300ml water minimum before training</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Dinner</div><div class="meal-time-val">19:30</div><div class="meal-kcal">~490 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Grilled Chicken Thigh + Lentils + Salad</div>
+        <ul class="meal-items">
+          <li>180g grilled skinless chicken thigh (richer flavor, still lean protein)</li>
+          <li>¾ cup cooked green lentils (fiber, low GI, plant protein, iron)</li>
+          <li>Roasted eggplant + zucchini with EVOO + herbs</li>
+          <li>Tomato-cucumber salad with red onion, parsley, lemon</li>
+          <li>Herbal tea</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Bedtime</div><div class="meal-time-val">22:00</div><div class="meal-kcal">~110 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Bedtime Protocol</div>
+        <ul class="meal-items">
+          <li>100g cottage cheese (casein — slow-release overnight protein)</li>
+          <li class="med-line">CPAP on — sleep target 7–8 hours</li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-totals">
+      <div class="total-item"><div class="total-val">1,790 kcal</div><div class="total-lbl">Total Calories</div></div>
+      <div class="total-item"><div class="total-val">156g</div><div class="total-lbl">Protein</div></div>
+      <div class="total-item"><div class="total-val">75g</div><div class="total-lbl">Net Carbs</div></div>
+      <div class="total-item"><div class="total-val">80g</div><div class="total-lbl">Fat</div></div>
+    </div>
+    <div class="exercise-block">
+      <div class="exercise-header">
+        <div class="exercise-title">🦵 Lower Body Strength Training</div>
+        <div class="exercise-duration">⏱ 75 min · 17:00–18:15</div>
+      </div>
+      <div class="exercise-grid">
+        <div class="exercise-item"><div class="ex-phase">Warm-up · 10 min</div><div class="ex-name">Leg Activation</div><div class="ex-detail">Leg swings, hip circles, bodyweight squats ×20, glute bridges ×15</div></div>
+        <div class="exercise-item"><div class="ex-phase">Main · 50 min</div><div class="ex-name">Legs + Glutes + Core</div><div class="ex-detail">Barbell squat 4×10, Romanian deadlift 4×10, Leg press 3×12, Leg curl 3×12, Calf raises 3×15, Plank 3×45s. Rest 90s between sets.</div></div>
+        <div class="exercise-item"><div class="ex-phase">Cardio · 15 min</div><div class="ex-name">Incline Treadmill Walk</div><div class="ex-detail">10% incline, 4 km/h — burns glucose without joint stress. Excellent post-leg-day glucose clearance.</div></div>
+      </div>
+    </div>
+    <div class="tip-box"><strong>💡 Wednesday Tip</strong> Lower body muscles are your largest glucose sink. Squats and deadlifts massively activate GLUT-4 transporters — muscles absorb glucose without needing insulin. This session is the most powerful drug-free glucose intervention of the week.</div>
+    <div class="water-reminder">💧 Drink 500ml water 30 min before training. Sip during workout. Total 2.5L today.</div>
+  </div>
+</div>
+
+<!-- ===================== DAY 4 — THURSDAY ===================== -->
+<div class="day-panel" id="day-3">
+  <div class="day-header">
+    <div class="day-title">Day 4 — <span>Thursday</span></div>
+    <div class="day-focus">🏊 Swimming or Cycling</div>
+  </div>
+  <div class="day-body">
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Breakfast</div><div class="meal-time-val">07:30</div><div class="meal-kcal">~420 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Warm Quinoa Porridge + Eggs</div>
+        <ul class="meal-items">
+          <li>½ cup cooked quinoa as porridge with cinnamon and vanilla (no sugar)</li>
+          <li>2 poached eggs on the side</li>
+          <li>1 tbsp almond butter (healthy fat, no added sugar)</li>
+          <li>½ cup blueberries</li>
+          <li>Unsweetened almond milk if desired</li>
+          <li class="med-line">Livazo 2mg + Losartan — with breakfast</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Mid-Morning</div><div class="meal-time-val">10:30</div><div class="meal-kcal">~100 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Hydration Snack</div>
+        <ul class="meal-items">
+          <li>Cucumber + bell pepper strips (unlimited)</li>
+          <li>2 tbsp hummus</li>
+          <li>Sparkling water with mint</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Lunch</div><div class="meal-time-val">13:00</div><div class="meal-kcal">~500 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Tuna Niçoise Bowl (modified)</div>
+        <ul class="meal-items">
+          <li>180g grilled or canned tuna in water (40g protein)</li>
+          <li>2 boiled eggs</li>
+          <li>Green beans, cherry tomatoes, olives, capers</li>
+          <li>Large mixed lettuce bed</li>
+          <li>Dressing: EVOO + Dijon mustard + lemon + garlic</li>
+          <li>No potatoes — swap for ½ cup white beans instead</li>
+          <li>500ml water</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Pre-Swim</div><div class="meal-time-val">16:30</div><div class="meal-kcal">~120 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Light Pre-Exercise Snack</div>
+        <ul class="meal-items">
+          <li>100g Greek yogurt</li>
+          <li>1 tsp honey (only pre-exercise — burns immediately during training)</li>
+          <li>300ml water</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Dinner</div><div class="meal-time-val">19:30</div><div class="meal-kcal">~540 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Grilled Lamb Kebab + Modified Fattoush + Tabbouleh</div>
+        <ul class="meal-items">
+          <li>180g lean lamb kebab, grilled (not fried) — 36g protein</li>
+          <li>Fattoush salad without fried bread: lettuce, tomato, radish, cucumber, parsley, sumac, lemon, EVOO</li>
+          <li>½ cup tabbouleh (bulgur-based, rich in parsley — anti-inflammatory)</li>
+          <li>2 tbsp plain labneh (protein + probiotic)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Bedtime</div><div class="meal-time-val">22:00</div><div class="meal-kcal">~110 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Bedtime Protocol</div>
+        <ul class="meal-items">
+          <li>100g cottage cheese</li>
+          <li class="med-line">CPAP on — full night</li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-totals">
+      <div class="total-item"><div class="total-val">1,790 kcal</div><div class="total-lbl">Total Calories</div></div>
+      <div class="total-item"><div class="total-val">149g</div><div class="total-lbl">Protein</div></div>
+      <div class="total-item"><div class="total-val">77g</div><div class="total-lbl">Net Carbs</div></div>
+      <div class="total-item"><div class="total-val">81g</div><div class="total-lbl">Fat</div></div>
+    </div>
+    <div class="exercise-block">
+      <div class="exercise-header">
+        <div class="exercise-title">🏊 Swimming or Stationary Cycling</div>
+        <div class="exercise-duration">⏱ 60 min · 17:00–18:00</div>
+      </div>
+      <div class="exercise-grid">
+        <div class="exercise-item"><div class="ex-phase">Option A · 60 min</div><div class="ex-name">Swimming (strongly preferred)</div><div class="ex-detail">Freestyle laps alternating with breaststroke. Full body, non-impact. Expands plasma volume — directly dilutes elevated hematocrit. Uniquely beneficial for this patient.</div></div>
+        <div class="exercise-item"><div class="ex-phase">Option B · 60 min</div><div class="ex-name">Stationary Bike</div><div class="ex-detail">Moderate resistance, 80–90 RPM cadence. Intervals: 3 min moderate / 1 min push. HR 120–140 bpm.</div></div>
+        <div class="exercise-item"><div class="ex-phase">Post · 15 min</div><div class="ex-name">Cool-down + BP Check</div><div class="ex-detail">Slow walk, check blood pressure and resting HR. Record readings in health log.</div></div>
+      </div>
+    </div>
+    <div class="tip-box"><strong>💡 Thursday Tip</strong> Swimming is uniquely powerful here — it simultaneously exercises all muscle groups AND expands plasma volume, which dilutes your elevated hematocrit naturally. Aim to swim at least once every week throughout this protocol.</div>
+    <div class="water-reminder">💧 Especially important on swim days. Target 3L today.</div>
+  </div>
+</div>
+
+<!-- ===================== DAY 5 — FRIDAY ===================== -->
+<div class="day-panel" id="day-4">
+  <div class="day-header">
+    <div class="day-title">Day 5 — <span>Friday</span></div>
+    <div class="day-focus">🏋️ Full Body Strength</div>
+  </div>
+  <div class="day-body">
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Breakfast</div><div class="meal-time-val">07:30</div><div class="meal-kcal">~430 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">High-Protein Egg & Vegetable Skillet</div>
+        <ul class="meal-items">
+          <li>3 eggs scrambled with spinach, red peppers, mushrooms, onion in 1 tsp EVOO</li>
+          <li>50g smoked turkey breast on side</li>
+          <li>½ avocado</li>
+          <li>Black coffee or green tea (no sugar)</li>
+          <li class="med-line">Livazo 2mg + Losartan — with breakfast</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Mid-Morning</div><div class="meal-time-val">10:30</div><div class="meal-kcal">~120 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Snack</div>
+        <ul class="meal-items">
+          <li>1 small green apple (lowest GI apple variety)</li>
+          <li>15g dark chocolate 85%+ cacao (antioxidant, minimal sugar)</li>
+          <li>500ml water</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Lunch</div><div class="meal-time-val">13:00</div><div class="meal-kcal">~520 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Grilled Sardines + Quinoa Salad</div>
+        <ul class="meal-items">
+          <li>200g grilled sardines (exceptional omega-3 — directly lowers TG and inflammation)</li>
+          <li>½ cup quinoa salad with diced cucumber, parsley, lemon, EVOO</li>
+          <li>Small portion roasted beet (rich in nitrates — lowers BP naturally)</li>
+          <li>Large leafy green salad</li>
+          <li>500ml water</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Pre-Workout</div><div class="meal-time-val">16:00</div><div class="meal-kcal">~140 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Pre-Training Protein</div>
+        <ul class="meal-items">
+          <li>2 hard-boiled eggs</li>
+          <li>10 almonds</li>
+          <li>300ml water</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Dinner</div><div class="meal-time-val">19:30</div><div class="meal-kcal">~480 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Baked Cod + Ratatouille + Arugula Salad</div>
+        <ul class="meal-items">
+          <li>200g baked cod with herbs, lemon zest, garlic (very lean, high protein)</li>
+          <li>Large portion ratatouille: eggplant, zucchini, tomato, peppers, herbs (very low carb, high fiber)</li>
+          <li>Arugula + walnut + small parmesan + balsamic vinegar salad</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Bedtime</div><div class="meal-time-val">22:00</div><div class="meal-kcal">~110 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Bedtime Protocol</div>
+        <ul class="meal-items">
+          <li>100g low-fat cottage cheese</li>
+          <li class="med-line">CPAP on — full night</li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-totals">
+      <div class="total-item"><div class="total-val">1,800 kcal</div><div class="total-lbl">Total Calories</div></div>
+      <div class="total-item"><div class="total-val">152g</div><div class="total-lbl">Protein</div></div>
+      <div class="total-item"><div class="total-val">74g</div><div class="total-lbl">Net Carbs</div></div>
+      <div class="total-item"><div class="total-val">83g</div><div class="total-lbl">Fat</div></div>
+    </div>
+    <div class="exercise-block">
+      <div class="exercise-header">
+        <div class="exercise-title">💪 Full Body Compound Strength</div>
+        <div class="exercise-duration">⏱ 80 min · 17:00–18:20</div>
+      </div>
+      <div class="exercise-grid">
+        <div class="exercise-item"><div class="ex-phase">Warm-up · 10 min</div><div class="ex-name">Full Body Activation</div><div class="ex-detail">Jump rope 3 min, arm circles, leg swings, bodyweight squats ×15, band pull-aparts ×20</div></div>
+        <div class="exercise-item"><div class="ex-phase">Main · 55 min</div><div class="ex-name">Compound Movements</div><div class="ex-detail">Deadlift 4×8, Pull-ups or lat pulldown 4×10, Dumbbell bench 3×10, Bulgarian split squat 3×10/leg, Dumbbell row 3×12, Farmer's carry 3×30m</div></div>
+        <div class="exercise-item"><div class="ex-phase">Cardio · 15 min</div><div class="ex-name">Rowing Machine</div><div class="ex-detail">Rowing engages 86% of muscle mass — outstanding post-workout glucose clearance. Moderate pace, focus on form over speed.</div></div>
+      </div>
+    </div>
+    <div class="tip-box"><strong>💡 Friday Tip</strong> Deadlifts and pull-ups recruit the most total muscle mass of any exercise. More muscle activated = greater GLUT-4 expression = more glucose absorbed without insulin. End the week strong.</div>
+    <div class="water-reminder">💧 2.5L water. Add a pinch of sea salt if you feel fatigued during training.</div>
+  </div>
+</div>
+
+<!-- ===================== DAY 6 — SATURDAY ===================== -->
+<div class="day-panel" id="day-5">
+  <div class="day-header">
+    <div class="day-title">Day 6 — <span>Saturday</span></div>
+    <div class="day-focus">🌿 Outdoor Activity + Rest</div>
+  </div>
+  <div class="day-body">
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Breakfast</div><div class="meal-time-val">08:00</div><div class="meal-kcal">~440 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Weekend Protein Breakfast — Enjoy It</div>
+        <ul class="meal-items">
+          <li>3-egg omelette with feta cheese (30g), tomatoes, herbs</li>
+          <li>100g smoked salmon on the side</li>
+          <li>Sliced cucumber and tomatoes</li>
+          <li>1 thin slice whole rye bread (15g carbs, GI ~41)</li>
+          <li>Good quality coffee — black or with small splash of whole milk, no sugar</li>
+          <li class="med-line">Livazo 2mg + Losartan — with breakfast</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Late Morning</div><div class="meal-time-val">11:00</div><div class="meal-kcal">~100 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Snack</div>
+        <ul class="meal-items">
+          <li>1 pear or small peach</li>
+          <li>10 pistachios</li>
+          <li>Sparkling water with lemon</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Lunch</div><div class="meal-time-val">13:30</div><div class="meal-kcal">~510 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Grilled Chicken Souvlaki + Greek Salad (no pita)</div>
+        <ul class="meal-items">
+          <li>200g grilled chicken souvlaki (lemon, oregano, garlic, EVOO marinade)</li>
+          <li>No pita bread — replace with ½ cup hummus as dip</li>
+          <li>Large Greek salad: tomato, cucumber, olives (5), feta (30g), red onion, oregano, EVOO</li>
+          <li>2 tbsp tzatziki (yogurt-based — protein + probiotic)</li>
+          <li>500ml water</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Afternoon</div><div class="meal-time-val">16:30</div><div class="meal-kcal">~130 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Afternoon Snack</div>
+        <ul class="meal-items">
+          <li>150g plain Greek yogurt</li>
+          <li>Sprinkle of cinnamon + 5 walnuts</li>
+          <li>Water or herbal tea</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Dinner</div><div class="meal-time-val">19:30</div><div class="meal-kcal">~510 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Baked Sea Bream + Mediterranean Vegetables</div>
+        <ul class="meal-items">
+          <li>200g whole baked sea bream with lemon, garlic, fresh herbs</li>
+          <li>Roasted Mediterranean vegetables: zucchini, eggplant, cherry tomatoes, onion, peppers with EVOO</li>
+          <li>Mixed leaf salad with balsamic dressing</li>
+          <li>Chamomile or peppermint herbal tea</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Bedtime</div><div class="meal-time-val">22:00</div><div class="meal-kcal">~110 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Bedtime Protocol</div>
+        <ul class="meal-items">
+          <li>100g cottage cheese</li>
+          <li class="med-line">CPAP on — 8 hours target tonight</li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-totals">
+      <div class="total-item"><div class="total-val">1,800 kcal</div><div class="total-lbl">Total Calories</div></div>
+      <div class="total-item"><div class="total-val">147g</div><div class="total-lbl">Protein</div></div>
+      <div class="total-item"><div class="total-val">80g</div><div class="total-lbl">Net Carbs</div></div>
+      <div class="total-item"><div class="total-val">81g</div><div class="total-lbl">Fat</div></div>
+    </div>
+    <div class="exercise-block">
+      <div class="exercise-header">
+        <div class="exercise-title">🌿 Outdoor Walking + Post-Lunch Walk</div>
+        <div class="exercise-duration">⏱ 75 min total · Morning + Afternoon</div>
+      </div>
+      <div class="exercise-grid">
+        <div class="exercise-item"><div class="ex-phase">Morning · 60 min · 09:00</div><div class="ex-name">Brisk Outdoor Walk</div><div class="ex-detail">Nature, park, or beach — 5–6 km at brisk pace. Morning sun exposure improves cortisol rhythm and insulin sensitivity throughout the day.</div></div>
+        <div class="exercise-item"><div class="ex-phase">Afternoon · 15 min · 14:30</div><div class="ex-name">Post-Lunch Walk</div><div class="ex-detail">Walk immediately after lunch. Blunts the post-meal glucose spike powerfully. Make this a permanent daily habit.</div></div>
+      </div>
+    </div>
+    <div class="tip-box"><strong>💡 Saturday Tip</strong> This is not a punishment diet — it is the Mediterranean diet, one of the most enjoyable and sustainable eating patterns in the world. The food is flavorful, social, and satisfying. You are learning to eat the way your body was designed to.</div>
+    <div class="water-reminder">💧 2.5L water. Herbal teas count toward total. Enjoy freely.</div>
+  </div>
+</div>
+
+<!-- ===================== DAY 7 — SUNDAY ===================== -->
+<div class="day-panel" id="day-6">
+  <div class="day-header">
+    <div class="day-title">Day 7 — <span>Sunday</span></div>
+    <div class="day-focus">📊 Weekly Review + Gentle Yoga</div>
+  </div>
+  <div class="day-body">
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Breakfast</div><div class="meal-time-val">08:00</div><div class="meal-kcal">~420 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Full Sunday Breakfast</div>
+        <ul class="meal-items">
+          <li>2 poached eggs on bed of sautéed spinach with garlic</li>
+          <li>3 slices grilled turkey bacon (not fried)</li>
+          <li>½ avocado with lemon squeeze</li>
+          <li>Small bowl mixed berries — strawberries, raspberries (very low GI)</li>
+          <li>Black coffee or cinnamon tea</li>
+          <li class="med-line">Livazo 2mg + Losartan — with breakfast</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Mid-Morning</div><div class="meal-time-val">11:00</div><div class="meal-kcal">~110 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Snack</div>
+        <ul class="meal-items">
+          <li>100g plain Greek yogurt with 1 tsp chia seeds</li>
+          <li>5 walnut halves</li>
+          <li>Chamomile tea</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Lunch</div><div class="meal-time-val">13:30</div><div class="meal-kcal">~530 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Sunday Batch Cook — Chicken Cacciatore + Lentils</div>
+        <ul class="meal-items">
+          <li>200g slow-cooked chicken breast in tomato, olives, capers, herbs</li>
+          <li>½ cup cooked lentils on the side</li>
+          <li>Roasted vegetables: small carrots, parsnip with rosemary and EVOO</li>
+          <li>Large salad</li>
+          <li>🍳 Batch cook extra portions for Monday and Tuesday — meal prep now</li>
+          <li>500ml water</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Afternoon</div><div class="meal-time-val">16:30</div><div class="meal-kcal">~120 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Snack</div>
+        <ul class="meal-items">
+          <li>2 celery sticks + 2 tbsp almond butter</li>
+          <li>1 small orange</li>
+          <li>Water</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Dinner</div><div class="meal-time-val">19:00</div><div class="meal-kcal">~490 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Light Sunday Dinner — Mediterranean Meze</div>
+        <ul class="meal-items">
+          <li>4 tbsp hummus + ½ cup tabbouleh + 2 tbsp labneh</li>
+          <li>150g grilled halloumi (high protein — watch sodium intake today)</li>
+          <li>Sliced raw vegetables: cucumber, tomato, radish, bell peppers</li>
+          <li>5 olives</li>
+          <li>No bread — use lettuce leaves as wraps</li>
+          <li>Herbal tea</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meal-block">
+      <div class="meal-time-col"><div class="meal-label">Bedtime</div><div class="meal-time-val">22:00</div><div class="meal-kcal">~110 kcal</div></div>
+      <div class="meal-content">
+        <div class="meal-name">Weekly Close + Bedtime Protocol</div>
+        <ul class="meal-items">
+          <li>100g cottage cheese</li>
+          <li class="med-line">CPAP on — sleep by 22:30</li>
+          <li>📊 Record weekly weight, avg fasting glucose, BP readings, exercise sessions completed</li>
+          <li>🛒 Plan next week's groceries. Repeat this 7-day cycle.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-totals">
+      <div class="total-item"><div class="total-val">1,780 kcal</div><div class="total-lbl">Total Calories</div></div>
+      <div class="total-item"><div class="total-val">145g</div><div class="total-lbl">Protein</div></div>
+      <div class="total-item"><div class="total-val">79g</div><div class="total-lbl">Net Carbs</div></div>
+      <div class="total-item"><div class="total-val">82g</div><div class="total-lbl">Fat</div></div>
+    </div>
+    <div class="exercise-block">
+      <div class="exercise-header">
+        <div class="exercise-title">🧘 Yoga + Breathwork + Weekly Review</div>
+        <div class="exercise-duration">⏱ 60 min · 10:00–11:00</div>
+      </div>
+      <div class="exercise-grid">
+        <div class="exercise-item"><div class="ex-phase">Yoga · 40 min</div><div class="ex-name">Restorative Yoga</div><div class="ex-detail">Sun salutations ×5, warrior poses, seated twists, forward folds, supine stretches. Reduces cortisol by up to 30% — directly improves insulin sensitivity.</div></div>
+        <div class="exercise-item"><div class="ex-phase">Breathwork · 10 min</div><div class="ex-name">4-7-8 Breathing</div><div class="ex-detail">Inhale 4s, hold 7s, exhale 8s. Activates parasympathetic system, lowers blood pressure, reduces stress-driven glucose elevation.</div></div>
+        <div class="exercise-item"><div class="ex-phase">Review · 10 min</div><div class="ex-name">Weekly Health Log</div><div class="ex-detail">Weight, fasting glucose, BP readings, CPAP hours logged, exercise sessions completed. Bring this log to every appointment.</div></div>
+      </div>
+    </div>
+    <div class="tip-box"><strong>💡 Sunday Weekly Self-Assessment</strong> Ask yourself: ✅ Did I complete 4+ exercise sessions? ✅ Did I drink 2.5L water daily? ✅ Did I take Livazo and Losartan every morning? ✅ Did I use CPAP every night? ✅ Did I avoid sugar, alcohol, and processed food? Each yes is progress. Each no is next week's priority.</div>
+    <div class="water-reminder">💧 2.5L water. Prep and wash vegetables today for the coming week.</div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong style="color: var(--text); display:block; margin-bottom:8px;">⚠️ Medical Disclaimer</strong>
+  This plan is a supportive educational guide based on the clinical profile and prescribed medications provided. It does not replace the individualized advice of your treating physician, endocrinologist, or registered dietitian. Never adjust medication doses independently. Report any adverse effects immediately to your medical team.
+  <br><br>
+  <span style="color: var(--accent); font-family: 'DM Mono', monospace; font-size: 11px;">Repeat this 7-day cycle for 8 weeks · Review with endocrinologist at Week 4 and Week 8</span>
+</div>
+
+<script>
+  function showDay(index) {
+    document.querySelectorAll('.day-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+    document.querySelectorAll('.day-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+    window.scrollTo({ top: document.querySelector('.day-nav').offsetTop - 20, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
